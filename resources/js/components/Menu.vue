@@ -54,7 +54,11 @@
             {
               name: 'Dashboard',
               path: 'admin.dashboard'
-            }
+            },
+            {
+              name: 'New post',
+              path: 'admin.post.create'
+            },
           ]
         }
       }

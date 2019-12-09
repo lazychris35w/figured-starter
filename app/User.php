@@ -6,10 +6,14 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HybridRelations;
+
+    protected $connection = 'mysql';
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +41,13 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The relationship of users and posts, an user has many posts.
+     */
+    public function posts() {
+        return $this->hasMany('App\Post');
+    }
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
